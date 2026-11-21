@@ -68,8 +68,9 @@ class OpenPatienceApp extends StatelessWidget {
       // players who find the standard size hard to read. Every Text widget,
       // including card ranks and buttons, picks this up automatically.
       builder: (BuildContext context, Widget? child) => MediaQuery(
-        data: MediaQuery.of(context)
-            .copyWith(textScaler: const TextScaler.linear(1.3)),
+        data: MediaQuery.of(
+          context,
+        ).copyWith(textScaler: const TextScaler.linear(1.3)),
         child: child!,
       ),
       theme: AppTheme.themeData,

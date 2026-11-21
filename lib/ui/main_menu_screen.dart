@@ -113,8 +113,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       return;
     }
     setState(() => _debugModeUnlocked = true);
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(S(context).debugModeEnabled)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(S(context).debugModeEnabled)));
   }
 
   Future<void> _resume(BuildContext context, SavedGame saved) async {

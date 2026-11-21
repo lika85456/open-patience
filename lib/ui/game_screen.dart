@@ -132,10 +132,9 @@ class _GameScreenState extends State<GameScreen> with WidgetsBindingObserver {
                   ),
                   Expanded(
                     child: BlocListener<GameBloc, GameBlocState>(
-                      listenWhen: (
-                        GameBlocState previous,
-                        GameBlocState current,
-                      ) => current is GameWon && previous is! GameWon,
+                      listenWhen:
+                          (GameBlocState previous, GameBlocState current) =>
+                              current is GameWon && previous is! GameWon,
                       listener: _onGameWon,
                       child: const Board(),
                     ),
