@@ -60,6 +60,10 @@
 **F-Droid**: Open Patience will be available on the main F-Droid repository once
 [the corresponding Merge Request](https://gitlab.com/fdroid/fdroiddata/-/merge_requests/46901) is merged.
 
+**Obtainium (this Czech fork)**: tap the
+[Add to Obtainium link](https://apps.obtainium.imranr.dev/redirect?r=obtainium://app/%7B%22id%22%3A%22io.github.d_rk.openpatience%22%2C%22url%22%3A%22https%3A%2F%2Fgithub.com%2Flika85456%2Fopen-patience%22%2C%22author%22%3A%22lika85456%22%2C%22name%22%3A%22Open%20Patience%20%28Czech%29%22%2C%22additionalSettings%22%3A%22%7B%5C%22apkFilterRegEx%5C%22%3A%5C%22%5C%22%2C%5C%22invertAPKFilter%5C%22%3Afalse%2C%5C%22autoApkFilterByArch%5C%22%3Atrue%2C%5C%22appName%5C%22%3A%5C%22Open%20Patience%20%28Czech%29%5C%22%2C%5C%22appAuthor%5C%22%3A%5C%22d-rk%2C%20Czech%20fork%20by%20lika85456%5C%22%2C%5C%22trackOnly%5C%22%3Afalse%2C%5C%22versionDetection%5C%22%3Atrue%7D%22%7D).
+The correct APK is picked automatically for the device architecture.
+
 
 ## Development
 
