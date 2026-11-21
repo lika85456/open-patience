@@ -123,11 +123,12 @@ class CardView extends StatelessWidget {
       // targets at the pointer, so pinning the card's center there makes drops
       // land where the card *looks* like it is — far more forgiving than
       // aiming with a finger that leads the card by wherever it was grabbed.
-      dragAnchorStrategy: (
-        Draggable<Object> draggable,
-        BuildContext context,
-        Offset position,
-      ) => Offset(size.width / 2, size.height / 2),
+      dragAnchorStrategy:
+          (
+            Draggable<Object> draggable,
+            BuildContext context,
+            Offset position,
+          ) => Offset(size.width / 2, size.height / 2),
       feedback: _DragFeedback(cards: stack, size: size),
       childWhenDragging: placeholder,
       onDragStarted: () => scope?.begin(dragData!),
