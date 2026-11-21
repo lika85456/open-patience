@@ -46,6 +46,9 @@
 - **Resume where you left off** — the in-progress deal is saved and restored.
 - **Genuinely offline** — the release build declares no Android permissions at
   all. No ads, no tracking, no network.
+- **Czech and English** — this fork follows the device language. Czech devices
+  get Czech menus, variant names, records and win messages; all other locales
+  fall back to English.
 
 ## Install
 

@@ -1,38 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/app_strings.dart';
 import '../persistence/records_repository.dart';
 import '../persistence/stats.dart';
 import 'theme/game_fonts.dart';
 import 'theme/game_palette.dart';
 import 'theme/widgets.dart';
-
-const List<String> _monthAbbr = <String>[
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-];
-
-/// A short date for a leaderboard row: `Today` for the current calendar day
-/// (local time), otherwise `MMM d` (e.g. `Aug 20`).
-String _formatWinDate(DateTime timestamp) {
-  final DateTime now = DateTime.now();
-  final bool isToday =
-      timestamp.year == now.year &&
-      timestamp.month == now.month &&
-      timestamp.day == now.day;
-  return isToday
-      ? 'Today'
-      : '${_monthAbbr[timestamp.month - 1]} ${timestamp.day}';
-}
 
 /// Per-variant records / leaderboard. Reads [Stats] from the repository and
 /// renders them read-only. No game logic — just a view of stored results.
@@ -64,7 +37,7 @@ class RecordsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               FeltHeader(
-                title: 'Records',
+                title: S(context).records,
                 subtitle: title,
                 onBack: () => Navigator.of(context).pop(),
               ),
@@ -148,6 +121,7 @@ class _WinBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStrings s = S(context);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
       decoration: BoxDecoration(
@@ -168,7 +142,7 @@ class _WinBanner extends StatelessWidget {
                   fontSize: 13,
                 ),
                 children: <InlineSpan>[
-                  const TextSpan(text: 'You won in '),
+                  TextSpan(text: '${s.youWonIn} '),
                   TextSpan(
                     text: formatDuration(timeSeconds),
                     style: const TextStyle(
@@ -177,7 +151,7 @@ class _WinBanner extends StatelessWidget {
                       fontSize: 15,
                     ),
                   ),
-                  TextSpan(text: ' · ${formatMoves(moves)}'),
+                  TextSpan(text: ' · ${s.moves(moves)}'),
                 ],
               ),
             ),
@@ -191,7 +165,7 @@ class _WinBanner extends StatelessWidget {
                 borderRadius: BorderRadius.circular(999),
               ),
               child: Text(
-                '#$rank BEST',
+                s.rankBest(rank),
                 style: const TextStyle(
                   color: GamePalette.feltGreenDark,
                   fontWeight: FontWeight.w800,
@@ -215,6 +189,7 @@ class _TotalWinsHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AppStrings s = S(context);
     final WinRecord? best = stats.bestWins.isEmpty
         ? null
         : stats.bestWins.first;
@@ -244,7 +219,7 @@ class _TotalWinsHero extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Total wins',
+                  s.totalWins,
                   style: TextStyle(
                     color: GamePalette.cardFace.withValues(alpha: 0.75),
                     fontFamily: GameFonts.body,
@@ -268,7 +243,7 @@ class _TotalWinsHero extends StatelessWidget {
                 ),
               ),
               Text(
-                best == null ? 'Best win' : '${best.moves} moves · best',
+                best == null ? s.bestWin : s.bestWinMoves(best.moves),
                 key: const Key('bestWinMoves'),
                 style: TextStyle(
                   color: GamePalette.cardFace.withValues(alpha: 0.7),
@@ -298,7 +273,7 @@ class _EmptyLeaderboard extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          'Win a game to start your leaderboard.',
+          S(context).emptyLeaderboard,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: GamePalette.cardFace.withValues(alpha: 0.7),
@@ -402,9 +377,9 @@ class _LeaderboardRow extends StatelessWidget {
                 color: GamePalette.gold,
                 borderRadius: BorderRadius.circular(5),
               ),
-              child: const Text(
-                'NEW',
-                style: TextStyle(
+              child: Text(
+                S(context).newBadge,
+                style: const TextStyle(
                   color: GamePalette.feltGreenDark,
                   fontWeight: FontWeight.w800,
                   fontSize: 9,
@@ -424,7 +399,7 @@ class _LeaderboardRow extends StatelessWidget {
           ),
           Expanded(
             child: Text(
-              formatMoves(record.moves),
+              formatMoves(record.moves, S(context)),
               key: ValueKey<String>('moves-$rank'),
               style: TextStyle(
                 color: GamePalette.cardFace.withValues(alpha: 0.7),
@@ -434,7 +409,7 @@ class _LeaderboardRow extends StatelessWidget {
             ),
           ),
           Text(
-            _formatWinDate(record.timestamp),
+            S(context).formatWinDate(record.timestamp),
             key: ValueKey<String>('date-$rank'),
             style: TextStyle(
               color: GamePalette.cardFace.withValues(alpha: 0.55),

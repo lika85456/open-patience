@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'l10n/app_strings.dart';
 import 'persistence/records_repository.dart';
 import 'persistence/settings_repository.dart';
 import 'persistence/shared_prefs_records_repository.dart';
@@ -53,6 +55,15 @@ class OpenPatienceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Open Patience',
+      // Follow the device language. Czech gets Czech copy; every other
+      // locale falls back to English via AppStringsDelegate.
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+        AppStringsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const <Locale>[Locale('en'), Locale('cs')],
       theme: AppTheme.themeData,
       home: MainMenuScreen(
         repository: repository,

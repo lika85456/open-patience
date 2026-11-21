@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../l10n/app_strings.dart';
 import '../persistence/settings_repository.dart';
 import '../presentation/bloc/game_bloc.dart';
 import '../presentation/bloc/game_bloc_state.dart';
@@ -20,6 +21,7 @@ Future<void> showGameMenu(
   return showDialog<void>(
     context: context,
     builder: (BuildContext dialogContext) {
+      final AppStrings s = S(dialogContext);
       return MenuWidthLimit(
         maxWidth: 380,
         child: Dialog(
@@ -48,7 +50,7 @@ Future<void> showGameMenu(
                             Expanded(
                               child: GameActionTile(
                                 icon: Icons.replay,
-                                label: 'Restart Deal',
+                                label: s.restartDeal,
                                 background: GamePalette.feltGreenMid,
                                 foreground: GamePalette.cardFace,
                                 onPressed: () {
@@ -61,7 +63,7 @@ Future<void> showGameMenu(
                             Expanded(
                               child: GameActionTile(
                                 icon: Icons.shuffle,
-                                label: 'New Deal',
+                                label: s.newDeal,
                                 background: GamePalette.feltGreenMid,
                                 foreground: GamePalette.cardFace,
                                 onPressed: () {
@@ -86,7 +88,7 @@ Future<void> showGameMenu(
                           width: double.infinity,
                           child: GameActionTile(
                             icon: Icons.logout,
-                            label: 'Exit to menu',
+                            label: s.exitToMenu,
                             background: GamePalette.feltGreenDark,
                             foreground: GamePalette.gold,
                             onPressed: () {
@@ -128,7 +130,7 @@ class _Banner extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Text(
-            variantTitle(bloc.variant),
+            variantTitle(bloc.variant, S(context)),
             style: const TextStyle(
               fontFamily: GameFonts.display,
               color: GamePalette.gold,
@@ -141,7 +143,7 @@ class _Banner extends StatelessWidget {
             builder: (BuildContext context, GameBlocState state) {
               return Text(
                 '${formatDuration(state.state.elapsedSeconds)} · '
-                '${formatMoves(state.state.moveCount)}',
+                '${formatMoves(state.state.moveCount, S(context))}',
                 style: TextStyle(
                   color: GamePalette.cardFace.withValues(alpha: 0.85),
                   fontSize: 12,
@@ -172,7 +174,7 @@ class _SoundTileState extends State<_SoundTile> {
     final bool on = widget.settings.soundEnabled;
     return GameActionTile(
       icon: on ? Icons.volume_up : Icons.volume_off,
-      label: on ? 'Sound: On' : 'Sound: Off',
+      label: on ? S(context).soundOn : S(context).soundOff,
       background: GamePalette.feltGreenMid,
       foreground: GamePalette.cardFace,
       onPressed: () async {

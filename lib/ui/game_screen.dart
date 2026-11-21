@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../l10n/app_strings.dart';
 import '../persistence/settings_repository.dart';
 import '../presentation/bloc/game_bloc.dart';
 import '../presentation/bloc/game_bloc_state.dart';
@@ -234,9 +235,9 @@ class _WinBanner extends StatelessWidget {
           child: Transform.scale(scale: 0.7 + 0.3 * t, child: child),
         );
       },
-      child: const Text(
-        'You Win!',
-        style: TextStyle(
+      child: Text(
+        S(context).youWin,
+        style: const TextStyle(
           fontFamily: GameFonts.display,
           color: GamePalette.gold,
           fontSize: 48,

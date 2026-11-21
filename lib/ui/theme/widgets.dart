@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_strings.dart';
 import 'game_fonts.dart';
 import 'game_palette.dart';
 
@@ -42,7 +43,7 @@ class FeltHeader extends StatelessWidget {
         children: <Widget>[
           if (onBack != null)
             IconButton(
-              tooltip: 'Back',
+              tooltip: S(context).back,
               icon: const Icon(Icons.arrow_back, color: GamePalette.gold),
               onPressed: onBack,
             ),

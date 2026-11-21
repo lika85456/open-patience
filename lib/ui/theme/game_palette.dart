@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../l10n/app_strings.dart';
+
 /// Emerald Felt design tokens — the single source of truth for the game's
 /// palette. Widgets reference these instead of hardcoding colors.
 class GamePalette {
@@ -60,5 +62,8 @@ String formatDuration(int seconds) {
   return '$mm:$ss';
 }
 
-/// Formats a move [count] as `1 move` / `N moves`.
-String formatMoves(int count) => count == 1 ? '1 move' : '$count moves';
+/// Formats a move [count] as `1 move` / `N moves`, or with Czech plural rules.
+///
+/// [strings] defaults to null so the pure-English unit tests keep working.
+String formatMoves(int count, [AppStrings? strings]) =>
+    strings?.moves(count) ?? (count == 1 ? '1 move' : '$count moves');

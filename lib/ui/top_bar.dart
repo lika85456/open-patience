@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../l10n/app_strings.dart';
 import '../presentation/bloc/game_bloc.dart';
 import '../presentation/bloc/game_bloc_state.dart';
 import '../presentation/bloc/game_event.dart';
@@ -45,14 +46,14 @@ class TopBar extends StatelessWidget {
                 SolveReveal(
                   visible: _canSolve(state),
                   child: IconButton(
-                    tooltip: 'Solve',
+                    tooltip: S(context).solve,
                     color: GamePalette.gold,
                     icon: const Icon(Icons.auto_fix_high),
                     onPressed: () => bloc.add(const AutoSolveRequested()),
                   ),
                 ),
                 IconButton(
-                  tooltip: 'Undo',
+                  tooltip: S(context).undo,
                   color: GamePalette.gold,
                   icon: const Icon(Icons.undo),
                   onPressed: !won && state.state.canUndo
@@ -60,7 +61,7 @@ class TopBar extends StatelessWidget {
                       : null,
                 ),
                 IconButton(
-                  tooltip: 'Redo',
+                  tooltip: S(context).redo,
                   color: GamePalette.gold,
                   icon: const Icon(Icons.redo),
                   onPressed: !won && state.state.canRedo
@@ -101,9 +102,9 @@ class _MenuButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
         onTap: onMenu,
-        child: const Tooltip(
-          message: 'Menu',
-          child: SizedBox(
+        child: Tooltip(
+          message: S(context).menu,
+          child: const SizedBox(
             width: 40,
             height: 40,
             child: Icon(Icons.menu, color: GamePalette.feltGreenDark),

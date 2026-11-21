@@ -1,29 +1,33 @@
 import '../core/game_catalog.dart';
 import '../core/game_registry.dart';
+import '../l10n/app_strings.dart';
 
 /// A human-readable full title for a variant id (headers, records, resume rows).
-String variantTitle(String id) {
+///
+/// [strings] defaults to null so the pure-English call sites in tests keep
+/// working; the UI passes `S(context)` to get the localized label.
+String variantTitle(String id, [AppStrings? strings]) {
   switch (id) {
     case GameRegistry.klondikeDraw1:
-      return 'Klondike (Draw 1)';
+      return strings?.klondikeDraw1 ?? 'Klondike (Draw 1)';
     case GameRegistry.klondikeDraw3:
-      return 'Klondike (Draw 3)';
+      return strings?.klondikeDraw3 ?? 'Klondike (Draw 3)';
     case GameRegistry.freecell:
       return 'FreeCell';
     case GameRegistry.freecellCells2:
-      return 'FreeCell (2 cells)';
+      return strings?.freecellTwoCells ?? 'FreeCell (2 cells)';
     case GameRegistry.freecellCells6:
-      return 'FreeCell (6 cells)';
+      return strings?.freecellSixCells ?? 'FreeCell (6 cells)';
     default:
       return id;
   }
 }
 
 /// The display name of a game (title screen and options header).
-String gameTitle(String gameId) {
+String gameTitle(String gameId, [AppStrings? strings]) {
   switch (gameId) {
     case GameCatalog.klondike:
-      return 'Klondike';
+      return strings?.klondike ?? 'Klondike';
     case GameCatalog.freecell:
       return 'FreeCell';
     default:
@@ -32,36 +36,36 @@ String gameTitle(String gameId) {
 }
 
 /// A short label for a variant row on a game's options page.
-String variantShortLabel(String id) {
+String variantShortLabel(String id, [AppStrings? strings]) {
   switch (id) {
     case GameRegistry.klondikeDraw1:
-      return 'Draw 1';
+      return strings?.drawOne ?? 'Draw 1';
     case GameRegistry.klondikeDraw3:
-      return 'Draw 3';
+      return strings?.drawThree ?? 'Draw 3';
     case GameRegistry.freecell:
-      return 'Classic · 4 cells';
+      return strings?.classicFourCells ?? 'Classic · 4 cells';
     case GameRegistry.freecellCells2:
-      return '2 cells · hard';
+      return strings?.twoCellsHard ?? '2 cells · hard';
     case GameRegistry.freecellCells6:
-      return '6 cells · relaxed';
+      return strings?.sixCellsRelaxed ?? '6 cells · relaxed';
     default:
       return id;
   }
 }
 
 /// A one-line descriptor under a variant's short label.
-String variantDescriptor(String id) {
+String variantDescriptor(String id, [AppStrings? strings]) {
   switch (id) {
     case GameRegistry.klondikeDraw1:
-      return 'Turn one card at a time';
+      return strings?.turnOneCard ?? 'Turn one card at a time';
     case GameRegistry.klondikeDraw3:
-      return 'Turn three at a time';
+      return strings?.turnThreeCards ?? 'Turn three at a time';
     case GameRegistry.freecell:
-      return 'Standard FreeCell';
+      return strings?.standardFreecell ?? 'Standard FreeCell';
     case GameRegistry.freecellCells2:
-      return 'Fewer cells, tighter play';
+      return strings?.fewerCellsTighter ?? 'Fewer cells, tighter play';
     case GameRegistry.freecellCells6:
-      return 'Extra room, easier';
+      return strings?.extraRoomEasier ?? 'Extra room, easier';
     default:
       return '';
   }

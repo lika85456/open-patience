@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show appFlavor;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/game_catalog.dart';
+import '../l10n/app_strings.dart';
 import '../persistence/records_repository.dart';
 import '../persistence/settings_repository.dart';
 import '../presentation/bloc/game_bloc.dart';
@@ -114,7 +115,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     setState(() => _debugModeUnlocked = true);
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('Debug mode enabled')));
+    ).showSnackBar(SnackBar(content: Text(S(context).debugModeEnabled)));
   }
 
   Future<void> _resume(BuildContext context, SavedGame saved) async {
@@ -171,14 +172,14 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Text(
-                          'Games',
+                          S(context).games,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
                       for (final Game game in GameCatalog.games)
                         Card(
                           child: ListTile(
-                            title: Text(gameTitle(game.id)),
+                            title: Text(gameTitle(game.id, S(context))),
                             trailing: const Icon(Icons.chevron_right),
                             onTap: () => _openGame(context, game.id),
                           ),
@@ -222,7 +223,7 @@ class _ContinueSection extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Text(
-            'Continue playing',
+            S(context).continuePlaying,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -244,12 +245,12 @@ class _ContinueSection extends StatelessWidget {
                 title: Text(variantTitle(saved.variant)),
                 subtitle: Text(
                   '${formatDuration(saved.state.elapsedSeconds)} · '
-                  '${formatMoves(saved.state.moveCount)}',
+                  '${formatMoves(saved.state.moveCount, S(context))}',
                 ),
                 trailing: TextButton.icon(
                   onPressed: () => onResume(saved),
                   icon: const Icon(Icons.play_arrow),
-                  label: const Text('Resume'),
+                  label: Text(S(context).resume),
                 ),
                 onTap: () => onResume(saved),
               ),
