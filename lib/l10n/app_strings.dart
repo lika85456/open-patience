@@ -20,7 +20,8 @@ class AppStrings {
 
   // Main menu.
   String get games => isCzech ? 'Hry' : 'Games';
-  String get continuePlaying => isCzech ? 'Pokračovat v hře' : 'Continue playing';
+  String get continuePlaying =>
+      isCzech ? 'Pokračovat v hře' : 'Continue playing';
   String get resume => isCzech ? 'Pokračovat' : 'Resume';
   String get debugModeEnabled =>
       isCzech ? 'Ladící režim zapnut' : 'Debug mode enabled';
@@ -51,8 +52,7 @@ class AppStrings {
       ? 'Vyhrajte hru a založte si žebříček.'
       : 'Win a game to start your leaderboard.';
   String get newBadge => isCzech ? 'NOVÉ' : 'NEW';
-  String rankBest(int rank) =>
-      isCzech ? '#$rank NEJLEPŠÍ' : '#$rank BEST';
+  String rankBest(int rank) => isCzech ? '#$rank NEJLEPŠÍ' : '#$rank BEST';
   String bestWinMoves(int count) =>
       '${moves(count)} · ${isCzech ? 'nejlepší' : 'best'}';
 
@@ -60,8 +60,10 @@ class AppStrings {
   // Proper names stay the same in Czech.
   String get klondike => 'Klondike';
   String get freecell => 'FreeCell';
-  String get klondikeDraw1 => isCzech ? 'Klondike (1 karta)' : 'Klondike (Draw 1)';
-  String get klondikeDraw3 => isCzech ? 'Klondike (3 karty)' : 'Klondike (Draw 3)';
+  String get klondikeDraw1 =>
+      isCzech ? 'Klondike (1 karta)' : 'Klondike (Draw 1)';
+  String get klondikeDraw3 =>
+      isCzech ? 'Klondike (3 karty)' : 'Klondike (Draw 3)';
   String get freecellTwoCells =>
       isCzech ? 'FreeCell (2 sloty)' : 'FreeCell (2 cells)';
   String get freecellSixCells =>
