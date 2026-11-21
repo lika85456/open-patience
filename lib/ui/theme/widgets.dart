@@ -164,9 +164,20 @@ class GameWordmark extends StatelessWidget {
               textBaseline: TextBaseline.alphabetic,
               crossAxisAlignment: CrossAxisAlignment.baseline,
               children: <Widget>[
-                Text('OPEN', style: _word(GamePalette.cardFace)),
+                // The wordmark is already display-sized: keep it at its
+                // designed size so the global large-text scale cannot push it
+                // off a narrow phone screen.
+                Text(
+                  'OPEN',
+                  style: _word(GamePalette.cardFace),
+                  textScaler: TextScaler.noScaling,
+                ),
                 const SizedBox(width: 14),
-                Text('PATIENCE', style: _word(GamePalette.gold)),
+                Text(
+                  'PATIENCE',
+                  style: _word(GamePalette.gold),
+                  textScaler: TextScaler.noScaling,
+                ),
               ],
             ),
             SizedBox(height: compact ? 4 : 8),

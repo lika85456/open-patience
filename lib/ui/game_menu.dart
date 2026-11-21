@@ -93,9 +93,8 @@ Future<void> showGameMenu(
                             foreground: GamePalette.gold,
                             onPressed: () {
                               Navigator.of(dialogContext).pop(); // close dialog
-                              Navigator.of(
-                                context,
-                              ).pop(); // leave the play screen
+                              Navigator.of(context)
+                                  .pop(); // leave the play screen
                             },
                           ),
                         ),

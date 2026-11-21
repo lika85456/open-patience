@@ -64,6 +64,14 @@ class OpenPatienceApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const <Locale>[Locale('en'), Locale('cs')],
+      // Larger-than-default text across the whole app: the fork is aimed at
+      // players who find the standard size hard to read. Every Text widget,
+      // including card ranks and buttons, picks this up automatically.
+      builder: (BuildContext context, Widget? child) => MediaQuery(
+        data: MediaQuery.of(context)
+            .copyWith(textScaler: const TextScaler.linear(1.3)),
+        child: child!,
+      ),
       theme: AppTheme.themeData,
       home: MainMenuScreen(
         repository: repository,

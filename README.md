@@ -49,6 +49,8 @@
 - **Czech and English** — this fork follows the device language. Czech devices
   get Czech menus, variant names, records and win messages; all other locales
   fall back to English.
+- **Larger text** — all text is 1.3× the standard size for easier reading. The
+  decorative wordmark keeps its original size so it still fits narrow screens.
 
 ## Install
 
