@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide Card;
 
 import '../core/pile.dart';
 import '../ui/theme/game_palette.dart';
+import 'suit_pip.dart';
 
 /// Keys for the role markers on empty slots, so tests (and future callers) can
 /// find them without reaching into glyph internals.
@@ -81,39 +82,26 @@ class SlotPlaceholder extends StatelessWidget {
   }
 
   /// A 2x2 cluster of all four suit pips: "suits go home here". Foundations are
-  /// not suit-locked, so no single suit is shown. Suit glyphs stay on the system
-  /// font for reliable Unicode rendering (per the design language), but that
-  /// font renders them as colored glyphs (red hearts/diamonds, black
-  /// spades/clubs) on some platforms — [ColorFiltered] flattens them to a
-  /// single muted tone so they read as a quiet marker, not a loud suit chart.
+  /// not suit-locked, so no single suit is shown. The pips are vector shapes
+  /// in one muted tone, so they never turn into coloured emoji glyphs.
   Widget _foundationMarker() {
-    final TextStyle glyph = TextStyle(
-      color: GamePalette.slotGlyph,
-      fontSize: cardSize.width * 0.26,
-      height: 1.0,
-    );
-    Widget row(String left, String right) => Row(
+    final double pip = cardSize.width * 0.26;
+    Widget row(int left, int right) => Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(left, style: glyph),
+        SuitPip.index(index: left, color: GamePalette.slotGlyph, size: pip),
         SizedBox(width: cardSize.width * 0.06),
-        Text(right, style: glyph),
+        SuitPip.index(index: right, color: GamePalette.slotGlyph, size: pip),
       ],
     );
-    return ColorFiltered(
+    return Column(
       key: foundationSlotMarkerKey,
-      colorFilter: const ColorFilter.mode(
-        GamePalette.slotGlyph,
-        BlendMode.srcIn,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          row('♠', '♥'),
-          SizedBox(height: cardSize.width * 0.04),
-          row('♦', '♣'),
-        ],
-      ),
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        row(0, 1),
+        SizedBox(height: cardSize.width * 0.04),
+        row(2, 3),
+      ],
     );
   }
 

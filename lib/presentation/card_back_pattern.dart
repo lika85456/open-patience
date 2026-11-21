@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import '../ui/theme/game_palette.dart';
+import 'suit_pip.dart';
 
 /// The fine, tone-on-tone diamond-and-pip texture drawn on the face-down card
 /// back. Purely decorative: it takes a [size] and shows a dense lattice of
@@ -154,114 +155,9 @@ class DiamondPipPainter extends CustomPainter {
           ..close();
         canvas.drawPath(diamond, lattice);
 
-        canvas.drawPath(_suitPath((i + 2 * j) % 4, cx, cy, pip), pipFill);
+        canvas.drawPath(suitPath((i + 2 * j) % 4, cx, cy, pip), pipFill);
       }
     }
-  }
-
-  /// A filled suit silhouette centred at ([cx], [cy]) with overall size [s].
-  /// [suit]: 0 = spade, 1 = heart, 2 = diamond, 3 = club.
-  Path _suitPath(int suit, double cx, double cy, double s) {
-    switch (suit) {
-      case 1:
-        return _heart(cx, cy, s);
-      case 2:
-        return _diamond(cx, cy, s);
-      case 3:
-        return _club(cx, cy, s);
-      default:
-        return _spade(cx, cy, s);
-    }
-  }
-
-  Path _heart(double cx, double cy, double s) {
-    final double w = s, h = s;
-    return Path()
-      ..moveTo(cx, cy + h * 0.34)
-      ..cubicTo(
-        cx - w * 0.52,
-        cy - h * 0.02,
-        cx - w * 0.5,
-        cy - h * 0.46,
-        cx,
-        cy - h * 0.16,
-      )
-      ..cubicTo(
-        cx + w * 0.5,
-        cy - h * 0.46,
-        cx + w * 0.52,
-        cy - h * 0.02,
-        cx,
-        cy + h * 0.34,
-      )
-      ..close();
-  }
-
-  Path _diamond(double cx, double cy, double s) {
-    final double w = s, h = s;
-    return Path()
-      ..moveTo(cx, cy - h * 0.44)
-      ..lineTo(cx + w * 0.32, cy)
-      ..lineTo(cx, cy + h * 0.44)
-      ..lineTo(cx - w * 0.32, cy)
-      ..close();
-  }
-
-  Path _spade(double cx, double cy, double s) {
-    final double w = s, h = s;
-    final Path p = Path()
-      ..moveTo(cx, cy - h * 0.42)
-      ..cubicTo(
-        cx + w * 0.5,
-        cy - h * 0.02,
-        cx + w * 0.5,
-        cy + h * 0.3,
-        cx,
-        cy + h * 0.12,
-      )
-      ..cubicTo(
-        cx - w * 0.5,
-        cy + h * 0.3,
-        cx - w * 0.5,
-        cy - h * 0.02,
-        cx,
-        cy - h * 0.42,
-      )
-      ..close();
-    // Stem.
-    p
-      ..moveTo(cx - w * 0.14, cy + h * 0.4)
-      ..lineTo(cx + w * 0.14, cy + h * 0.4)
-      ..lineTo(cx + w * 0.05, cy + h * 0.1)
-      ..lineTo(cx - w * 0.05, cy + h * 0.1)
-      ..close();
-    return p;
-  }
-
-  Path _club(double cx, double cy, double s) {
-    final double w = s, h = s, r = w * 0.19;
-    final Path p = Path()
-      ..addOval(Rect.fromCircle(center: Offset(cx, cy - h * 0.2), radius: r))
-      ..addOval(
-        Rect.fromCircle(
-          center: Offset(cx - w * 0.23, cy + h * 0.06),
-          radius: r,
-        ),
-      )
-      ..addOval(
-        Rect.fromCircle(
-          center: Offset(cx + w * 0.23, cy + h * 0.06),
-          radius: r,
-        ),
-      );
-    // Stem.
-    p
-      ..moveTo(cx - w * 0.13, cy + h * 0.42)
-      ..lineTo(cx + w * 0.13, cy + h * 0.42)
-      ..lineTo(cx + w * 0.05, cy + h * 0.05)
-      ..lineTo(cx - w * 0.05, cy + h * 0.05)
-      ..close();
-    return p;
   }
 
   @override

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart' hide Card;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:open_patience/core/pile.dart';
 import 'package:open_patience/presentation/pile_view.dart';
+import 'package:open_patience/presentation/suit_pip.dart';
+import 'package:open_patience/ui/theme/game_palette.dart';
 
 /// The empty-slot markers must be distinguishable per pile role so a player can
 /// tell at a glance where aces go (foundation) versus where a card (or a
@@ -53,16 +55,18 @@ void main() {
     expect(find.byKey(foundationMarker), findsNothing);
   });
 
-  testWidgets('foundation marker glyphs are forced to a single flat color, '
-      'not per-suit color', (WidgetTester tester) async {
+  testWidgets('foundation marker uses four vector pips in one flat color', (
+    WidgetTester tester,
+  ) async {
     await _pumpEmpty(tester, PileKind.foundation);
 
-    expect(
-      tester.widget(find.byKey(foundationMarker)),
-      isA<ColorFiltered>(),
-      reason:
-          'suit glyphs must be recolored as a unit so no platform '
-          'renders them in their native red/black suit colors',
+    final Finder pips = find.descendant(
+      of: find.byKey(foundationMarker),
+      matching: find.byType(SuitPip),
     );
+    expect(pips, findsNWidgets(4));
+    for (int i = 0; i < 4; i++) {
+      expect(tester.widget<SuitPip>(pips.at(i)).color, GamePalette.slotGlyph);
+    }
   });
 }

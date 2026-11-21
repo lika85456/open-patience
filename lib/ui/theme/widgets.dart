@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_strings.dart';
+import '../../presentation/suit_pip.dart';
 import 'game_fonts.dart';
 import 'game_palette.dart';
 
@@ -133,16 +134,9 @@ class GameWordmark extends StatelessWidget {
     shadows: _shadows,
   );
 
-  Widget _pip(String glyph) => Padding(
+  Widget _pip(int index) => Padding(
     padding: const EdgeInsets.symmetric(horizontal: 6),
-    child: Text(
-      glyph,
-      style: const TextStyle(
-        color: GamePalette.gold,
-        fontSize: 15,
-        height: 1.0,
-      ),
-    ),
+    child: SuitPip.index(index: index, color: GamePalette.gold, size: 13),
   );
 
   Widget _rule() => Expanded(
@@ -185,10 +179,10 @@ class GameWordmark extends StatelessWidget {
               children: <Widget>[
                 _rule(),
                 const SizedBox(width: 10),
-                _pip('♠'),
-                _pip('♥'),
-                _pip('♦'),
-                _pip('♣'),
+                _pip(0),
+                _pip(1),
+                _pip(2),
+                _pip(3),
                 const SizedBox(width: 10),
                 _rule(),
               ],

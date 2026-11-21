@@ -131,7 +131,7 @@ class _WinBanner extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          const Text('🎉', style: TextStyle(fontSize: 22)),
+          const Icon(Icons.celebration, color: GamePalette.gold, size: 26),
           const SizedBox(width: 10),
           Expanded(
             child: Text.rich(
@@ -202,7 +202,7 @@ class _TotalWinsHero extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          const Text('🏆', style: TextStyle(fontSize: 32)),
+          const Icon(Icons.emoji_events, color: GamePalette.gold, size: 34),
           const SizedBox(width: 16),
           Expanded(
             child: Column(

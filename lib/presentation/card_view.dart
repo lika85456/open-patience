@@ -8,6 +8,7 @@ import '../ui/theme/game_motion.dart';
 import '../ui/theme/game_palette.dart';
 import 'card_back_pattern.dart';
 import 'drag_scope.dart';
+import 'suit_pip.dart';
 
 /// The payload a dragged card carries: enough for a drop target to describe the
 /// intended move (`from` pile, the index of the grabbed card, and the exact
@@ -122,12 +123,11 @@ class CardView extends StatelessWidget {
       // targets at the pointer, so pinning the card's center there makes drops
       // land where the card *looks* like it is — far more forgiving than
       // aiming with a finger that leads the card by wherever it was grabbed.
-      dragAnchorStrategy:
-          (
-            Draggable<Object> draggable,
-            BuildContext context,
-            Offset position,
-          ) => Offset(size.width / 2, size.height / 2),
+      dragAnchorStrategy: (
+        Draggable<Object> draggable,
+        BuildContext context,
+        Offset position,
+      ) => Offset(size.width / 2, size.height / 2),
       feedback: _DragFeedback(cards: stack, size: size),
       childWhenDragging: placeholder,
       onDragStarted: () => scope?.begin(dragData!),
@@ -277,13 +277,6 @@ class CardFace extends StatelessWidget {
     'K',
   ];
 
-  static const Map<Suit, String> _suitGlyphs = <Suit, String>{
-    Suit.clubs: '♣',
-    Suit.diamonds: '♦',
-    Suit.hearts: '♥',
-    Suit.spades: '♠',
-  };
-
   static const Map<Suit, String> _suitNames = <Suit, String>{
     Suit.clubs: 'clubs',
     Suit.diamonds: 'diamonds',
@@ -380,7 +373,6 @@ class CardFace extends StatelessWidget {
 
     final Color color = card.isRed ? GamePalette.cardRed : GamePalette.cardInk;
     final String label = _rankLabels[card.rank];
-    final String glyph = _suitGlyphs[card.suit]!;
 
     final Widget index = Column(
       mainAxisSize: MainAxisSize.min,
@@ -396,14 +388,7 @@ class CardFace extends StatelessWidget {
             height: 0.9,
           ),
         ),
-        Text(
-          glyph,
-          style: TextStyle(
-            color: color,
-            fontSize: size.width * 0.22,
-            height: 0.9,
-          ),
-        ),
+        SuitPip(suit: card.suit, color: color, size: size.width * 0.22),
       ],
     );
 
@@ -427,12 +412,10 @@ class CardFace extends StatelessWidget {
           children: <Widget>[
             // Faint center pip.
             Center(
-              child: Text(
-                glyph,
-                style: TextStyle(
-                  color: color.withValues(alpha: 0.14),
-                  fontSize: size.width * 0.7,
-                ),
+              child: SuitPip(
+                suit: card.suit,
+                color: color.withValues(alpha: 0.14),
+                size: size.width * 0.5,
               ),
             ),
             Positioned(
